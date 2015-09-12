@@ -28,6 +28,12 @@ module Paperclip
     def fingerprint
       'fiiinnnnngggeeertiiiiiiiipppssss'
     end
+
+    def read
+      content = @target.read
+      @target.rewind
+      content
+    end
   end
 end
 

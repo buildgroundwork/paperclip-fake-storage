@@ -28,6 +28,10 @@ module Paperclip
         @queued_for_delete = []
       end
 
+      def read(style_name = default_style)
+        storage[path(style_name)].read
+      end
+
       private
 
       def storage

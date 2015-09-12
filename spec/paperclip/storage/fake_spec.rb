@@ -11,9 +11,9 @@ describe Paperclip::Storage::Fake do
     subject { attachment.exists? }
 
     context "when content has been written into the attachment" do
-      let(:content) { StringIO.new('I palindrome I') }
+      let(:content) { 'I palindrome I' }
       before do
-        attachment.assign(content)
+        attachment.assign(StringIO.new(content))
         attachment.save
       end
       it { should be_truthy }
@@ -27,6 +27,18 @@ describe Paperclip::Storage::Fake do
     context "when no content has been written into the attachment" do
       it { should_not be_truthy }
     end
+  end
+
+  describe "#read" do
+    subject { attachment.read }
+
+    let(:content) { 'I palindrome I' }
+    before do
+      attachment.assign(StringIO.new(content))
+      attachment.save
+    end
+
+    it { should == content }
   end
 
   class Record
